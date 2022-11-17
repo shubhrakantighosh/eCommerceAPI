@@ -23,5 +23,8 @@ public class User {
     private String userPassword;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Address>addresses=new HashSet<>();
+    @OneToMany(cascade =CascadeType.ALL,mappedBy = "user")
+    private Set<Cart>carts=new HashSet<>();
+
 
 }

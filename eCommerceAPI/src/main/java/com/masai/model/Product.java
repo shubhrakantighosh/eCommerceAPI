@@ -18,8 +18,9 @@ public class Product {
     private String productName;
     private Double productPrice;
     private Integer categoryId;
-
     @ManyToOne(cascade = CascadeType.ALL)
     private Category category;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Cart cart;
 
 }

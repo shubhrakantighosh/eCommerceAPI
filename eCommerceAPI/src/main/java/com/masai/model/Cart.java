@@ -6,24 +6,30 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
+@AllArgsConstructor
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
-public class Address {
+public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer cardId;
+    private Integer productId;
     private Integer addressId;
-    private String pinCode;
-    private String city;
-    private String state;
     private Integer userId;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
+    private List<Product> products=new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")
+    private  Address address;
     @OneToOne(cascade = CascadeType.ALL)
-    private Cart cart;
+    private OrderStatus orderStatus;
 
 }

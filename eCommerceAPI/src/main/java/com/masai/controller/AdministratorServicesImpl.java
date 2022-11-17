@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-public class AdministratorServices {
+public class AdministratorServicesImpl {
 
     @Autowired
     private AdminService adminService;

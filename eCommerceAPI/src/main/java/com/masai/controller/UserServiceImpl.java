@@ -1,8 +1,7 @@
 package com.masai.controller;
 
 
-import com.masai.model.Category;
-import com.masai.model.User;
+import com.masai.model.*;
 import com.masai.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -22,13 +21,41 @@ public class UserServiceImpl {
         return userServices.addUser(user);
     }
 
+
     @GetMapping("/categories")
     public List<Category> categories(){
         return null;
     }
 
-    public Category searchByCategory(){
+    @GetMapping("/category/{name}")
+    public Category searchByCategory(@PathVariable String name){
         return null;
+    }
+
+
+    @GetMapping("/products")
+    public List<Product> viewAllProducts(){
+        return null;
+    }
+
+    @GetMapping("/product/{id}")
+    public Product viewProductById(@PathVariable Integer id){
+        return null;
+    }
+
+    @PostMapping("/cart")
+    public Cart addToCart(@RequestBody Cart cart){
+        return userServices.addToCart(cart);
+    }
+
+    @PostMapping("/orderStatus")
+    public OrderStatus createOrder(@RequestBody OrderStatus orderStatus){
+        return userServices.orderCreated(orderStatus);
+    }
+
+    @PostMapping("/addaddress")
+    public Address addAddress(@RequestBody Address address){
+        return userServices.addAddress(address);
     }
 
 

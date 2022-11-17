@@ -5,8 +5,8 @@ import com.masai.exceptions.CategoryException;
 import com.masai.exceptions.ProductException;
 import com.masai.model.Category;
 import com.masai.model.Product;
-import com.masai.repository.AdminCategoryRepository;
-import com.masai.repository.AdminProductRepository;
+import com.masai.repository.CategoryRepository;
+import com.masai.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +16,14 @@ import java.util.List;
 public class AdminService {
 
     @Autowired
-    private AdminCategoryRepository adminCategoryRepository;
+    private CategoryRepository categoryRepository;
     @Autowired
-    private AdminProductRepository adminProductRepository;
+    private ProductRepository productRepository;
 
 
     public List<Product> products() throws ProductException {
 
-        List<Product>products=adminProductRepository.findAll();
+        List<Product>products= productRepository.findAll();
 
         if (products.size()==0){
             throw new ProductException("No product exists.");
@@ -34,9 +34,9 @@ public class AdminService {
 
     public Product addProduct(Product product) throws ProductException, CategoryException {
 
-        if(adminCategoryRepository.findById(product.getCategoryId()).isPresent()){
+        if(categoryRepository.findById(product.getCategoryId()).isPresent()){
             boolean flag=true;
-            List<Product>products= adminProductRepository.findAll();
+            List<Product>products= productRepository.findAll();
 
             for(Product i:products){
                 if (i.getProductName().equalsIgnoreCase(product.getProductName())
@@ -48,8 +48,8 @@ public class AdminService {
             }
 
             if(flag) {
-                product.setCategory(adminCategoryRepository.findById(product.getCategoryId()).get());
-                return adminProductRepository.save(product);
+                product.setCategory(categoryRepository.findById(product.getCategoryId()).get());
+                return productRepository.save(product);
             }else
                 throw new ProductException("Product already exists.");
         }else
@@ -61,7 +61,7 @@ public class AdminService {
 
     public List<Category> categories() throws CategoryException {
 
-        List<Category>categories= adminCategoryRepository.findAll();
+        List<Category>categories= categoryRepository.findAll();
 
         if (categories.size()==0){
             throw new CategoryException("No category exists.");
@@ -74,7 +74,7 @@ public class AdminService {
 
         boolean flag=true;
 
-        List<Category>categories= adminCategoryRepository.findAll();
+        List<Category>categories= categoryRepository.findAll();
         for(Category i:categories){
             if (i.getCategoryName().equalsIgnoreCase(category.getCategoryName())) {
                 flag = false;
@@ -83,7 +83,7 @@ public class AdminService {
         }
 
         if(flag){
-            return adminCategoryRepository.save(category);
+            return categoryRepository.save(category);
 
         }else
             throw new CategoryException("Category already exists.");
