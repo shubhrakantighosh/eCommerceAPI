@@ -1,6 +1,8 @@
 package com.masai.controller;
 
 
+import com.masai.exceptions.CategoryException;
+import com.masai.exceptions.UserException;
 import com.masai.model.*;
 import com.masai.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,15 +18,21 @@ public class UserServiceImpl {
     private UserServices userServices;
 
 
-    @PostMapping("/adduser")
-    public User addUser(@RequestBody User user){
-        return userServices.addUser(user);
+    @PostMapping("/register")
+    public User registerUser(@RequestBody User user) throws UserException {
+        return userServices.registerUser(user);
+    }
+
+    @GetMapping("/login")
+    public String logIn(@RequestParam(value = "username") String username,
+                        @RequestParam(value = "password") String password) throws UserException {
+        return userServices.logIn(username,password);
     }
 
 
     @GetMapping("/categories")
-    public List<Category> categories(){
-        return null;
+    public List<Category> categories() throws CategoryException {
+        return userServices.categories();
     }
 
     @GetMapping("/category/{name}")
