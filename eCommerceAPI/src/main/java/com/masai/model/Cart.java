@@ -20,8 +20,11 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer cardId;
+    @Transient
     private Integer productId;
+    @Transient
     private Integer addressId;
+    @Transient
     private Integer userId;
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
     private List<Product> products=new ArrayList<>();

@@ -17,6 +17,7 @@ public class Product {
     private Integer productId;
     private String productName;
     private Double productPrice;
+    @Transient
     private Integer categoryId;
     @ManyToOne(cascade = CascadeType.ALL)
     private Category category;

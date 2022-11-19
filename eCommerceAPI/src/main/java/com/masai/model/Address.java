@@ -20,6 +20,7 @@ public class Address {
     private String pinCode;
     private String city;
     private String state;
+    @Transient
     private Integer userId;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;

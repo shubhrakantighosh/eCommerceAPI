@@ -19,6 +19,7 @@ public class OrderStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer orderId;
+    @Transient
     private Integer cartId;
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "orderStatus")
     private Cart cart;
