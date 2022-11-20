@@ -8,8 +8,6 @@ import java.util.Set;
 
 @Entity
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
 @EqualsAndHashCode
 public class Category {

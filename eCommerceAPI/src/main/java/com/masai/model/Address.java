@@ -1,16 +1,14 @@
 package com.masai.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @ToString
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Address {
 
@@ -24,7 +22,7 @@ public class Address {
     private Integer userId;
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Cart cart;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "address")
+    private List<Cart>carts=new ArrayList<>();
 
 }

@@ -9,8 +9,6 @@ import java.util.Set;
 
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
 @Entity

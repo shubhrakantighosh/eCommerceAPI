@@ -6,14 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @ToString
-@NoArgsConstructor
 @Entity
 public class Cart {
 
@@ -26,13 +23,13 @@ public class Cart {
     private Integer addressId;
     @Transient
     private Integer userId;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cart")
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Product> products=new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
-    @OneToOne(cascade = CascadeType.ALL,mappedBy = "cart")
+    @ManyToOne(cascade = CascadeType.ALL)
     private  Address address;
     @OneToOne(cascade = CascadeType.ALL)
-    private OrderStatus orderStatus;
+    private Orders orders;
 
 }

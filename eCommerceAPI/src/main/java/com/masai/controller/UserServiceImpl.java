@@ -57,8 +57,8 @@ public class UserServiceImpl {
     }
 
     @PostMapping("/orderStatus")
-    public OrderStatus createOrder(@RequestBody OrderStatus orderStatus){
-        return userServices.orderCreated(orderStatus);
+    public Orders createOrder(@RequestBody Orders orders){
+        return userServices.orderCreated(orders);
     }
 
     @PostMapping("/addaddress")

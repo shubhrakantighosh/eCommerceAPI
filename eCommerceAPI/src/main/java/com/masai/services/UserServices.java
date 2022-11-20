@@ -102,20 +102,24 @@ public class UserServices {
         cart.setAddress(addressRepository.findById(cart.getAddressId()).get());
         cart.getProducts().add(productRepository.findById(cart.getProductId()).get());
 
+        Product product=productRepository.findById(cart.getProductId()).get();
+        product.getCarts().add(cart);
+        productRepository.save(product);
+
         Address address=addressRepository.findById(cart.getAddressId()).get();
-        address.setCart(cart);
+        address.getCarts().add(cart);
         addressRepository.save(address);
 
         return cartRepository.save(cart);
     }
 
-    public OrderStatus orderCreated(OrderStatus orderStatus){
-        orderStatus.setCart(cartRepository.findById(orderStatus.getCartId()).get());
+    public Orders orderCreated(Orders orders){
+        orders.setCart(cartRepository.findById(orders.getCartId()).get());
 
-        Cart cart=cartRepository.findById(orderStatus.getCartId()).get();
-        cart.setOrderStatus(orderStatus);
+        Cart cart=cartRepository.findById(orders.getCartId()).get();
+        cart.setOrders(orders);
 
-        return orderStatusRepository.save(orderStatus);
+        return orderStatusRepository.save(orders);
     }
 
 
