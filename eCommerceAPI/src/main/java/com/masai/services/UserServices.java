@@ -8,6 +8,8 @@ import com.masai.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -27,6 +29,8 @@ public class UserServices {
     private ProductRepository productRepository;
     @Autowired
     private CategoryRepository categoryRepository;
+    @Autowired
+    private UserSessionRepository userSessionRepository;
 
     public User registerUser(User user) throws UserException {
         boolean flag=true;
@@ -38,6 +42,7 @@ public class UserServices {
             if(i.getUserName().equalsIgnoreCase(user.getUserName())
             && i.getUserPassword().equals(user.getUserPassword())){
                 flag=false;
+                break;
             }
 
         }
@@ -51,6 +56,8 @@ public class UserServices {
 
     public String logIn(String username, String password) throws UserException {
 
+        User user=null;
+
         boolean flag=true;
 
         List<User> users=userRepository.findAll();
@@ -60,15 +67,49 @@ public class UserServices {
             if(i.getUserName().equalsIgnoreCase(username) &&
             i.getUserPassword().equals(password)){
                 flag=false;
-
+                user=i;
+                break;
             }
         }
 
         if (flag){
             throw new UserException("You are not registered with us.");
 
-        }else
+        }else {
+
+            UserSession userSession=new UserSession();
+            userSession.setStart(LocalDateTime.now());
+            userSession.setUser(user);
+            userSessionRepository.save(userSession);
+
             return "LogIn successful.";
+        }
+
+    }
+
+
+    public String logout() throws UserException {
+
+        List<UserSession>userSessions=userSessionRepository.findAll();
+
+        boolean flag=false;
+        UserSession session=null;
+
+        for(UserSession userSession:userSessions){
+            if(userSession.getEnd()==null){
+                flag=true;
+                session=userSession;
+                break;
+            }
+
+        }
+
+        if (flag){
+            session.setEnd(LocalDateTime.now());
+            userSessionRepository.save(session);
+            return "Log Out successfully";
+        }else
+            throw new UserException("No Session active.");
 
     }
 

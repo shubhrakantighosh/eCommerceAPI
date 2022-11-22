@@ -29,6 +29,11 @@ public class UserServiceImpl {
         return userServices.logIn(username,password);
     }
 
+    @GetMapping("/logout")
+    public String logout() throws UserException {
+        return userServices.logout();
+    }
+
 
     @GetMapping("/categories")
     public List<Category> categories() throws CategoryException {

@@ -1,15 +1,12 @@
 package com.masai.model;
 
 
-import com.sun.istack.NotNull;
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 
 @Data
-@ToString
 @Entity
 public class Orders {
 
@@ -21,7 +18,6 @@ public class Orders {
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "orders")
     private Cart cart;
     @Enumerated(EnumType.STRING)
-    @NotNull
     private Payment payment;
 
 
