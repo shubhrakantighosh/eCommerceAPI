@@ -4,8 +4,6 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 @ToString
@@ -18,11 +16,7 @@ public class Address {
     private String pinCode;
     private String city;
     private String state;
-    @Transient
-    private Integer userId;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "address")
     private User user;
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "address")
-    private List<Cart>carts=new ArrayList<>();
 
 }

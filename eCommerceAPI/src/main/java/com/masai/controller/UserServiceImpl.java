@@ -57,17 +57,17 @@ public class UserServiceImpl {
     }
 
     @PostMapping("/cart")
-    public Cart addToCart(@RequestBody Cart cart){
+    public Cart addToCart(@RequestBody Cart cart) throws UserException {
         return userServices.addToCart(cart);
     }
 
-    @PostMapping("/orderStatus")
+    @PostMapping("/order")
     public Orders createOrder(@RequestBody Orders orders){
         return userServices.orderCreated(orders);
     }
 
-    @PostMapping("/addaddress")
-    public Address addAddress(@RequestBody Address address){
+    @PostMapping("/address")
+    public String addAddress(@RequestBody Address address) throws UserException {
         return userServices.addAddress(address);
     }
 

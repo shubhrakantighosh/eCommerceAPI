@@ -1,8 +1,6 @@
 package com.masai.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -19,16 +17,10 @@ public class Cart {
     private Integer cardId;
     @Transient
     private Integer productId;
-    @Transient
-    private Integer addressId;
-    @Transient
-    private Integer userId;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Product> products=new ArrayList<>();
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     private User user;
-    @ManyToOne(cascade = CascadeType.ALL)
-    private  Address address;
     @OneToOne(cascade = CascadeType.ALL)
     private Orders orders;
 
