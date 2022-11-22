@@ -5,6 +5,7 @@ import com.masai.exceptions.CategoryException;
 import com.masai.exceptions.ProductException;
 import com.masai.model.Category;
 import com.masai.model.Product;
+import com.masai.model.User;
 import com.masai.repository.CategoryRepository;
 import com.masai.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,5 +90,12 @@ public class AdminService {
             throw new CategoryException("Category already exists.");
 
     }
+
+
+
+    public List<User> users(){
+        return null;
+    }
+
 
 }
