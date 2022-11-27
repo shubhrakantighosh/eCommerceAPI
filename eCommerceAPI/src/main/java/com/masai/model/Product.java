@@ -8,7 +8,6 @@ import java.util.List;
 
 @Entity
 @Data
-@ToString
 public class Product {
 
     @Id

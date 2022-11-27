@@ -2,6 +2,7 @@ package com.masai.services;
 
 
 import com.masai.exceptions.CategoryException;
+import com.masai.exceptions.ProductException;
 import com.masai.exceptions.UserException;
 import com.masai.model.*;
 import com.masai.repository.*;
@@ -10,15 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
 public class UserServices {
 
 
-    @Autowired
-    private AddressRepository addressRepository;
     @Autowired
     private UserRepository userRepository;
     @Autowired
@@ -126,9 +124,9 @@ public class UserServices {
     }
 
 
-    public List<Category> categories() throws CategoryException {
+    public List<CategoryDTO> categories() throws CategoryException {
 
-        List<Category>categories=categoryRepository.findAll();
+        List<CategoryDTO>categories=categoryRepository.categories();
 
         if(categories.size()==0){
             throw new CategoryException("No category exists.");
@@ -136,9 +134,14 @@ public class UserServices {
             return categories;
     }
 
-    public List<Product> searchByCategory(String categoryName){
+    public List<ProductDTO> products() throws ProductException {
 
-        return null;
+        List<ProductDTO>products=productRepository.products();
+
+        if (products.size()==0){
+            throw new ProductException("No product exists.");
+        }else
+            return products;
 
     }
 

@@ -3,9 +3,7 @@ package com.masai.services;
 
 import com.masai.exceptions.CategoryException;
 import com.masai.exceptions.ProductException;
-import com.masai.model.Category;
-import com.masai.model.Product;
-import com.masai.model.User;
+import com.masai.model.*;
 import com.masai.repository.CategoryRepository;
 import com.masai.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +20,9 @@ public class AdminService {
     private ProductRepository productRepository;
 
 
-    public List<Product> products() throws ProductException {
+    public List<ProductDTO> products() throws ProductException {
 
-        List<Product>products= productRepository.findAll();
+        List<ProductDTO>products=productRepository.products();
 
         if (products.size()==0){
             throw new ProductException("No product exists.");
@@ -60,9 +58,9 @@ public class AdminService {
 
     }
 
-    public List<Category> categories() throws CategoryException {
+    public List<CategoryDTO> categories() throws CategoryException {
 
-        List<Category>categories= categoryRepository.findAll();
+        List<CategoryDTO>categories= categoryRepository.categories();
 
         if (categories.size()==0){
             throw new CategoryException("No category exists.");

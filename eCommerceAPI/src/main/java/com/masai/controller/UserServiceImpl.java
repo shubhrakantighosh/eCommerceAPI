@@ -2,10 +2,13 @@ package com.masai.controller;
 
 
 import com.masai.exceptions.CategoryException;
+import com.masai.exceptions.ProductException;
 import com.masai.exceptions.UserException;
 import com.masai.model.*;
 import com.masai.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,26 +22,28 @@ public class UserServiceImpl {
 
 
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user) throws UserException {
-        return userServices.registerUser(user);
+    public ResponseEntity<User> registerUser(@RequestBody User user) throws UserException {
+        return new ResponseEntity<>(userServices.registerUser(user),HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/login")
-    public String logIn(@RequestParam(value = "username") String username,
-                        @RequestParam(value = "password") String password) throws UserException {
-        return userServices.logIn(username,password);
+    public ResponseEntity<String> logIn(@RequestParam(value = "username") String username,
+                                        @RequestParam(value = "password") String password) throws UserException {
+
+        return new ResponseEntity<>(userServices.logIn(username,password), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/logout")
-    public String logout() throws UserException {
-        return userServices.logout();
+    public ResponseEntity<String> logout() throws UserException {
+        return new ResponseEntity<>(userServices.logout(),HttpStatus.OK);
     }
 
 
     @GetMapping("/categories")
-    public List<Category> categories() throws CategoryException {
-        return userServices.categories();
+    public ResponseEntity<List<CategoryDTO>> categories() throws CategoryException {
+        return new ResponseEntity<>(userServices.categories(),HttpStatus.OK);
     }
+
 
     @GetMapping("/category/{name}")
     public Category searchByCategory(@PathVariable String name){
@@ -47,8 +52,8 @@ public class UserServiceImpl {
 
 
     @GetMapping("/products")
-    public List<Product> viewAllProducts(){
-        return null;
+    public ResponseEntity<List<ProductDTO>> product() throws ProductException {
+        return new ResponseEntity<>(userServices.products(), HttpStatus.OK);
     }
 
     @GetMapping("/product/{id}")
