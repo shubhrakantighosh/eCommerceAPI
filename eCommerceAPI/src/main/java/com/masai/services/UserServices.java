@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -145,17 +147,56 @@ public class UserServices {
 
     }
 
+
+    public List<ProductDTO> searchByCategoryName(String categoryName) throws CategoryException, ProductException {
+        Integer categoryId=categoryRepository.findCategoryByName(categoryName);
+        if (categoryId==null){
+            throw new CategoryException("No category exists.");
+        }
+        List<ProductDTO>productDTOList=productRepository.productsSearchByCategoryId(categoryId);
+
+        if (productDTOList.isEmpty()){
+            throw new ProductException("No Product exists.");
+        }else
+            return productDTOList;
+
+    }
+
+    public List<ProductDTO> searchByProductPrice(Double minprice,Double maxprice) throws ProductException, UserException {
+
+        if (minprice>maxprice){
+            throw new UserException("Minimum Price should less from the Maximum Price");
+        }
+
+        List<ProductDTO>productDTOList=productRepository.searchByProductPrice(minprice,maxprice);
+
+        if (productDTOList.isEmpty()){
+            throw new ProductException("No Product exists.");
+        }else
+            return productDTOList;
+
+    }
+
+    public ProductDTO viewProductByName(String name) throws ProductException {
+        ProductDTO productDTO=productRepository.viewProductByName(name);
+
+        if (productDTO==null){
+            throw new ProductException("No Product exists.");
+        }else
+            return productDTO;
+
+    }
+
     public String addAddress(Address address) throws UserException {
 
         boolean flag=true;
+        User user=null;
         List<UserSession> userSessions=userSessionRepository.findAll();
 
         for (UserSession userSession:userSessions){
 
             if(userSession.getUser()!=null && userSession.getEnd()==null){
-                User user=userSession.getUser();
-                user.setAddress(address);
-                userRepository.save(user);
+                user=userSession.getUser();
                 flag=false;
                 break;
             }
@@ -163,56 +204,174 @@ public class UserServices {
         }
 
         if (flag){
+
             throw new UserException("Please LogIn.");
-        }else
+
+        } else if (user.getAddress()!=null) {
+
+            throw new UserException("Address Already registered.");
+
+        } else {
+            user.setAddress(address);
+            userRepository.save(user);
+        }
+
             return "Registered successfully.";
     }
 
-    public Cart addToCart(Cart cart) throws UserException {
+    public String addToCart(Integer productId) throws UserException {
 
-        boolean flag=true;
+        boolean flag = true;
+        User user = null;
+        Cart cart = new Cart();
+
+        for (UserSession userSession : userSessionRepository.findAll()) {
+
+            if (userSession.getStart() != null && userSession.getEnd() == null) {
+
+                user=userSession.getUser();
+
+                if (user.getAddress() == null) {
+                    throw new UserException("Please Register your address.");
+                } else {
+
+                    Optional <Product>product=productRepository.findById(productId);
+
+                    if (product.isEmpty()){
+                        throw new UserException("No Product exists.");
+                    }
+
+                    List<Cart> userCarts= new ArrayList<>();
+
+                    for (Cart carts : cartRepository.findAll()) {
+                        if (carts.getUser() == user) {
+                            userCarts.add(carts);
+                        }
+                    }
+
+                    for (Cart carts : userCarts) {
+                        if (carts.getOrders()== null) {
+                            cart = carts;
+                            break;
+                        }
+                    }
+
+                    cart.setUser(user);
+                    cart.getProducts().add(product.get());
+
+                    cartRepository.save(cart);
+                    flag = false;
+                }
+            }
+        }
+
+        if (flag) {
+            throw new UserException("Please Log In.");
+        } else
+            return "Added.";
+
+    }
+
+
+    public String totalAmount() throws UserException {
+
+        User user=null;
         List<UserSession> userSessions=userSessionRepository.findAll();
 
         for (UserSession userSession:userSessions){
 
-            if(userSession.getStart()!=null && userSession.getEnd()==null){
-
-                User user=userRepository.findById(userSession.getUser().getUserId()).get();
-
-                if (user.getAddress().getPinCode()==null){
-                    throw new UserException("Please Register your address.");
-
-                }else {
-
-                    cart.setUser(userSession.getUser());
-                    cart.getProducts().add(productRepository.findById(cart.getProductId()).get());
-//                    Product product = productRepository.findById(cart.getProductId()).get();
-//                    product.getCarts().add(cart);
-//                    productRepository.save(product);
-                    flag=false;
-
-                }
-
+            if(userSession.getUser()!=null && userSession.getEnd()==null){
+                user=userSession.getUser();
+                break;
             }
 
         }
 
-        if (flag){
-
-            throw new UserException("Please Log In.");
-
-        }else {
-
-            return cartRepository.save(cart);
+        if (user==null){
+            throw new UserException("Please LogIn.");
         }
+
+        List<Product>total=new ArrayList<>();
+
+        for (Cart cart:cartRepository.findAll()){
+            if (cart.getUser()==user){
+                total.addAll(cart.getProducts());
+            }
+        }
+
+        if (total.isEmpty()){
+            throw new UserException("No Product added.");
+        }
+
+        Double sum= 0.00;
+
+        for(Product product:total){
+            sum+=product.getProductPrice();
+        }
+
+        return "Total Amount is "+sum;
 
     }
 
-    public Orders orderCreated(Orders orders){
 
-        orders.setCart(cartRepository.findById(orders.getCartId()).get());
+    public String removeCart() throws UserException {
 
-        Cart cart=cartRepository.findById(orders.getCartId()).get();
+        User user=null;
+
+        for (UserSession userSession:userSessionRepository.findAll()){
+
+            if(userSession.getUser()!=null && userSession.getEnd()==null){
+                user=userSession.getUser();
+                break;
+            }
+
+        }
+
+        if (user==null){
+            throw new UserException("Please LogIn.");
+        }
+
+        Cart cart=user.getCart();
+
+        if (cart==null){
+            throw new UserException("No Product added.");
+        }
+
+//        cartRepository.delete(cart);
+
+
+        return "Removed Successfully.";
+
+    }
+
+    public List<ProductDTO> orderCreated() throws UserException {
+
+        User user=null;
+
+        for (UserSession userSession:userSessionRepository.findAll()){
+
+            if(userSession.getUser()!=null && userSession.getEnd()==null){
+                user=userSession.getUser();
+                break;
+            }
+
+        }
+
+        if (user==null){
+            throw new UserException("Please LogIn.");
+        }
+
+        Cart cart=user.getCart();
+
+        if (cart==null){
+            throw new UserException("No Product added.");
+        }
+
+        Orders orders= new Orders();
+
+        orders.setCart(user.getCart());
+
+        Cart cart1=cartRepository.findById(orders.getCartId()).get();
         cart.setOrders(orders);
 
         return orderStatusRepository.save(orders);
