@@ -14,6 +14,19 @@ import java.time.LocalDate;
 @ControllerAdvice
 public class GlobalException {
 
+
+    @ExceptionHandler(AdminException.class)
+    public ResponseEntity<MyError> adminExceptionHandler(AdminException adminException, WebRequest webRequest){
+
+        MyError myError=new MyError();
+        myError.setLocalDate(LocalDate.now());
+        myError.setMessage(adminException.getMessage());
+        myError.setDescription(webRequest.getDescription(false));
+
+        return new ResponseEntity<>(myError, HttpStatus.BAD_REQUEST);
+
+    }
+
     @ExceptionHandler(CategoryException.class)
     public ResponseEntity<MyError> categoryExceptionHandler(CategoryException categoryException, WebRequest webRequest){
 

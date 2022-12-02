@@ -1,11 +1,14 @@
 package com.masai.services;
 
 
+import com.masai.exceptions.AdminException;
 import com.masai.exceptions.CategoryException;
 import com.masai.exceptions.ProductException;
 import com.masai.model.*;
 import com.masai.repository.CategoryRepository;
 import com.masai.repository.ProductRepository;
+import com.masai.repository.UserRepository;
+import com.masai.repository.UserSessionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,10 @@ public class AdminService {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private UserSessionRepository userSessionRepository;
+    @Autowired
+    private UserRepository userRepository;
 
 
     public List<ProductDTO> products() throws ProductException {
@@ -91,9 +98,24 @@ public class AdminService {
 
 
 
-    public List<User> users(){
-        return null;
+    public List<UserSessionDTO> userSessions() throws AdminException {
+        if (userSessionRepository.userSessions().isEmpty()){
+            throw new AdminException("No user session is there.");
+        }
+        return userSessionRepository.userSessions();
     }
 
+    public UserDTO searchByUserId(Integer userId){
+        return userRepository.searchByUserId(userId);
+    }
+
+    public UserDTO searchByUserName(String userName) {
+
+        return userRepository.searchByUserName(userName);
+    }
+
+    public List<UserDTO> users(){
+        return userRepository.users();
+    }
 
 }

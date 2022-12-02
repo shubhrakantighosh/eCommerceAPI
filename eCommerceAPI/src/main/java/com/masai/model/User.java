@@ -20,8 +20,8 @@ public class User {
     private String userPassword;
     @OneToOne(cascade = CascadeType.ALL)
     private Address address;
-    @OneToOne(cascade =CascadeType.ALL,mappedBy = "user")
-    private Cart cart;
+    @OneToMany(cascade =CascadeType.ALL,mappedBy = "user")
+    private List<Cart>carts=new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<UserSession>userSessions=new ArrayList<>();
 

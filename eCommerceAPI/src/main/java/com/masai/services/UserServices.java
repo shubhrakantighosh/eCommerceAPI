@@ -294,7 +294,7 @@ public class UserServices {
         List<Product>total=new ArrayList<>();
 
         for (Cart cart:cartRepository.findAll()){
-            if (cart.getUser()==user){
+            if (cart.getUser()==user && cart.getOrders()==null){
                 total.addAll(cart.getProducts());
             }
         }
@@ -331,20 +331,30 @@ public class UserServices {
             throw new UserException("Please LogIn.");
         }
 
-        Cart cart=user.getCart();
+        List<Cart> carts=user.getCarts();
 
-        if (cart==null){
+        Cart cart=null;
+
+        for (Cart cart1:carts) {
+            if (cart1.getOrders()==null){
+                cart=cart1;
+                break;
+            }
+        }
+
+
+        if (cart == null) {
             throw new UserException("No Product added.");
         }
 
-//        cartRepository.delete(cart);
+        cartRepository.delete(cart);
 
 
         return "Removed Successfully.";
 
     }
 
-    public List<ProductDTO> orderCreated() throws UserException {
+    public Orders orderCreated(Payment paymentMode) throws UserException {
 
         User user=null;
 
@@ -361,17 +371,26 @@ public class UserServices {
             throw new UserException("Please LogIn.");
         }
 
-        Cart cart=user.getCart();
+        List<Cart> carts=user.getCarts();
+
+        Cart cart=null;
+
+        for (Cart cart1:carts){
+            if (cart1.getOrders()==null){
+                cart=cart1;
+                break;
+            }
+        }
+
 
         if (cart==null){
             throw new UserException("No Product added.");
         }
 
         Orders orders= new Orders();
+        orders.setCart(cart);
+        orders.setPayment(paymentMode);
 
-        orders.setCart(user.getCart());
-
-        Cart cart1=cartRepository.findById(orders.getCartId()).get();
         cart.setOrders(orders);
 
         return orderStatusRepository.save(orders);

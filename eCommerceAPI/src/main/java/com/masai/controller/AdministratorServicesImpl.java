@@ -1,12 +1,10 @@
 package com.masai.controller;
 
 
+import com.masai.exceptions.AdminException;
 import com.masai.exceptions.CategoryException;
 import com.masai.exceptions.ProductException;
-import com.masai.model.Category;
-import com.masai.model.CategoryDTO;
-import com.masai.model.Product;
-import com.masai.model.ProductDTO;
+import com.masai.model.*;
 import com.masai.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,6 +43,26 @@ public class AdministratorServicesImpl {
     public ResponseEntity<List<CategoryDTO>> categories() throws CategoryException {
         return  new ResponseEntity<>(adminService.categories(),HttpStatus.OK);
 
+    }
+
+    @GetMapping("/userSession")
+    public ResponseEntity<List<UserSessionDTO>> userSessions() throws AdminException {
+        return new ResponseEntity<>(adminService.userSessions(),HttpStatus.OK);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<UserDTO>> users(){
+        return new ResponseEntity<>(adminService.users(),HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    public UserDTO searchByUserId(@PathVariable Integer userId){
+        return adminService.searchByUserId(userId);
+    }
+
+    @GetMapping("/user/{userName}")
+    public ResponseEntity<UserDTO> searchByUserId(@PathVariable String userName) {
+        return new ResponseEntity<>(adminService.searchByUserName(userName),HttpStatus.OK);
     }
 
 

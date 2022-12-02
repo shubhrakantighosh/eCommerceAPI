@@ -19,7 +19,7 @@ public class Cart {
     private Integer productId;
     @ManyToMany(cascade = CascadeType.ALL)
     private List<Product> products=new ArrayList<>();
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     private User user;
     @OneToOne(cascade = CascadeType.ALL)
     private Orders orders;

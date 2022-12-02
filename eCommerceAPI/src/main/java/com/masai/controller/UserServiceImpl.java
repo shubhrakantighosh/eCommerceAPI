@@ -39,8 +39,8 @@ public class UserServiceImpl {
     }
 
     @PostMapping("/address")
-    public String addAddress(@RequestBody Address address) throws UserException {
-        return userServices.addAddress(address);
+    public ResponseEntity<String> addAddress(@RequestBody Address address) throws UserException {
+        return new ResponseEntity<>(userServices.addAddress(address),HttpStatus.OK);
     }
 
 
@@ -51,8 +51,8 @@ public class UserServiceImpl {
 
 
     @GetMapping("/category/{categoryName}")
-    public List<ProductDTO> searchByCategory(@PathVariable String categoryName) throws CategoryException, ProductException {
-        return userServices.searchByCategoryName(categoryName);
+    public ResponseEntity<List<ProductDTO>> searchByCategory(@PathVariable String categoryName) throws CategoryException, ProductException {
+        return new ResponseEntity<>(userServices.searchByCategoryName(categoryName),HttpStatus.OK);
     }
 
     @GetMapping("/products/{minprice}/{maxprice}")
@@ -86,9 +86,9 @@ public class UserServiceImpl {
         return new ResponseEntity<>(userServices.removeCart(),HttpStatus.OK);
     }
 
-    @PostMapping("/order")
-    public ResponseEntity<List<ProductDTO>> createOrder() throws UserException {
-        return new ResponseEntity<>(userServices.orderCreated(),HttpStatus.OK);
+    @PostMapping("/order/{paymentMode}")
+    public ResponseEntity<Orders> createOrder(@PathVariable Payment paymentMode) throws UserException {
+        return new ResponseEntity<>(userServices.orderCreated(paymentMode),HttpStatus.OK);
     }
 
 
