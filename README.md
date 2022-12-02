@@ -89,3 +89,4 @@ Tech Stack: Spring Boot | Spring Boot JPA | Hibernate | MySQL | Swagger | Lombok
 ❖ Lombok
 
 # The ER Diagram of the project:
+<a href="https://ibb.co/BgZXWnS"><img style="width: 1000px;" src="https://i.ibb.co/19qDyzw/Screenshot-2022-12-02-at-9-30-20-PM.png" alt="Screenshot-2022-12-02-at-9-30-20-PM" border="0"></a>
