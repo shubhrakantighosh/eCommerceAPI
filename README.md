@@ -2,7 +2,7 @@
 
 Making API for eCommerce Shopify Store and performing CRUD operations.
 A spring boot application project to develop REST APIs that can perform
-all the CRUD operations..
+all the CRUD operations.
 
 # Features:
 
