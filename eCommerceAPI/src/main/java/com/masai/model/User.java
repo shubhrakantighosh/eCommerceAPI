@@ -24,5 +24,7 @@ public class User {
     private List<Cart>carts=new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
     private List<UserSession>userSessions=new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<Orders> orders =new ArrayList<>();
 
 }

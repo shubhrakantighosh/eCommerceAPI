@@ -1,6 +1,10 @@
 package com.masai.controller;
 
 
+import com.masai.DTO.CategoryDTO;
+import com.masai.DTO.OrderDTO;
+import com.masai.DTO.OrderedProductDTO;
+import com.masai.DTO.ProductDTO;
 import com.masai.exceptions.CategoryException;
 import com.masai.exceptions.ProductException;
 import com.masai.exceptions.UserException;
@@ -11,11 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UserServiceImpl {
+public class UserControllerImpl {
 
     @Autowired
     private UserServices userServices;
@@ -56,8 +61,8 @@ public class UserServiceImpl {
     }
 
     @GetMapping("/products/{minprice}/{maxprice}")
-    public ResponseEntity<List<ProductDTO>> searchByProductPrice(@PathVariable Double minPrice,@PathVariable Double maxPrice) throws ProductException, UserException {
-        return new ResponseEntity<>(userServices.searchByProductPrice(minPrice,maxPrice),HttpStatus.OK);
+    public ResponseEntity<List<ProductDTO>> searchByProductPrice(@PathVariable Double minprice,@PathVariable Double maxprice) throws ProductException, UserException {
+        return new ResponseEntity<>(userServices.searchByProductPrice(minprice,maxprice),HttpStatus.OK);
     }
 
 
@@ -81,15 +86,24 @@ public class UserServiceImpl {
         return new ResponseEntity<>(userServices.totalAmount(),HttpStatus.OK);
     }
 
-    @GetMapping("/removeCart")
-    public ResponseEntity<String> removeCart() throws UserException {
+    @DeleteMapping("/removeCart")
+    public ResponseEntity<String> removeCart() throws UserException, CategoryException {
         return new ResponseEntity<>(userServices.removeCart(),HttpStatus.OK);
     }
 
     @PostMapping("/order/{paymentMode}")
-    public ResponseEntity<Orders> createOrder(@PathVariable Payment paymentMode) throws UserException {
-        return new ResponseEntity<>(userServices.orderCreated(paymentMode),HttpStatus.OK);
+    public ResponseEntity<String> createPlace(@PathVariable Payment paymentMode) throws UserException, CategoryException {
+        return new ResponseEntity<>(userServices.orderPlace(paymentMode),HttpStatus.OK);
     }
 
+    @GetMapping("/orders")
+    public ResponseEntity <HashMap<OrderDTO, List<OrderedProductDTO>>> orderSummary() throws UserException, ProductException {
+        return new ResponseEntity<>(userServices.orderSummary(),HttpStatus.OK);
+    }
+
+    @PutMapping("/update/address/{pinCode}/{city}/{state}")
+    public ResponseEntity<String> updateAddress(@PathVariable String pinCode,@PathVariable String city,@PathVariable String state) throws UserException {
+        return new ResponseEntity<>(userServices.updateAddress(pinCode,city,state),HttpStatus.OK);
+    }
 
 }

@@ -21,7 +21,5 @@ public class Cart {
     private List<Product> products=new ArrayList<>();
     @ManyToOne(cascade = CascadeType.ALL)
     private User user;
-    @OneToOne(cascade = CascadeType.ALL)
-    private Orders orders;
 
 }

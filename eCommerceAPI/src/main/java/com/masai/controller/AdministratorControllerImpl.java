@@ -1,8 +1,10 @@
 package com.masai.controller;
 
 
+import com.masai.DTO.*;
 import com.masai.exceptions.AdminException;
 import com.masai.exceptions.CategoryException;
+import com.masai.exceptions.ImageException;
 import com.masai.exceptions.ProductException;
 import com.masai.model.*;
 import com.masai.services.AdminService;
@@ -16,7 +18,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
-public class AdministratorServicesImpl {
+public class AdministratorControllerImpl {
 
     @Autowired
     private AdminService adminService;
@@ -31,6 +33,16 @@ public class AdministratorServicesImpl {
 
         return new ResponseEntity<>(adminService.addProduct(product),HttpStatus.OK);
 
+    }
+
+    @PostMapping("/image/add/image/{productId}/{imageURL}")
+    public ResponseEntity<String> productImageAdd(@PathVariable Integer productId,@PathVariable String imageURL) throws ProductException {
+        return new ResponseEntity<>(adminService.productImageAdd(productId,imageURL),HttpStatus.OK);
+    }
+
+    @GetMapping("/image/images/{productId}")
+    public ResponseEntity<List<ImageDTO>>imagesByProductId(@PathVariable Integer productId) throws ImageException, ProductException {
+        return new ResponseEntity<>(adminService.imagesByProductId(productId),HttpStatus.OK);
     }
 
     @GetMapping("/products")
@@ -63,6 +75,11 @@ public class AdministratorServicesImpl {
     @GetMapping("/user/{userName}")
     public ResponseEntity<UserDTO> searchByUserId(@PathVariable String userName) {
         return new ResponseEntity<>(adminService.searchByUserName(userName),HttpStatus.OK);
+    }
+
+    @PutMapping("/update/product/{productId}/{price}")
+    public ResponseEntity<String>updateProductDetails(@PathVariable Integer productId,@PathVariable Double price) throws CategoryException, ProductException {
+        return new ResponseEntity<>(adminService.updateProductDetails(productId,price),HttpStatus.OK);
     }
 
 

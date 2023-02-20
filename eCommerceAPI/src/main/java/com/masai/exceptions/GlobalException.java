@@ -63,6 +63,18 @@ public class GlobalException {
 
     }
 
+
+    @ExceptionHandler(ImageException.class)
+    public ResponseEntity<MyError>imageException(ImageException imageException,WebRequest webRequest){
+
+        MyError myError=new MyError();
+        myError.setLocalDate(LocalDate.now());
+        myError.setMessage(imageException.getMessage());
+        myError.setDescription(webRequest.getDescription(false));
+
+        return new ResponseEntity<>(myError,HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<MyError> runtimeExceptionHandler(RuntimeException runtimeException, WebRequest webRequest){
 

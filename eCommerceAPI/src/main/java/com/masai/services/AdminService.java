@@ -1,18 +1,18 @@
 package com.masai.services;
 
 
+import com.masai.DTO.*;
 import com.masai.exceptions.AdminException;
 import com.masai.exceptions.CategoryException;
+import com.masai.exceptions.ImageException;
 import com.masai.exceptions.ProductException;
 import com.masai.model.*;
-import com.masai.repository.CategoryRepository;
-import com.masai.repository.ProductRepository;
-import com.masai.repository.UserRepository;
-import com.masai.repository.UserSessionRepository;
+import com.masai.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AdminService {
@@ -25,6 +25,8 @@ public class AdminService {
     private UserSessionRepository userSessionRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ImageRepository imageRepository;
 
 
     public List<ProductDTO> products() throws ProductException {
@@ -116,6 +118,59 @@ public class AdminService {
 
     public List<UserDTO> users(){
         return userRepository.users();
+    }
+
+    public String productImageAdd(Integer productId,String imageURL) throws ProductException {
+
+        Optional<Product> product=productRepository.findById(productId);
+
+        if (product.isPresent()){
+
+            Images image=new Images();
+            image.setImageURL(imageURL);
+            image.setProduct(product.get());
+
+            imageRepository.save(image);
+
+            return "Added Successfully.";
+
+        }else throw new ProductException("Product doesn't not exist.");
+
+    }
+
+    public List<ImageDTO>imagesByProductId(Integer productId) throws ImageException, ProductException {
+
+        Optional<Product> product = productRepository.findById(productId);
+
+        if (product.isPresent()) {
+
+            List<ImageDTO>images=imageRepository.getImagesByProductId((product.get()).getProductId());
+
+            if (images.isEmpty()){
+                throw new ImageException("No images Exists.");
+
+            }else return images;
+
+        }else throw new ProductException("No Product exists.");
+
+    }
+
+    public String updateProductDetails(Integer productId,Double price) throws ProductException{
+
+        Optional<Product> product=productRepository.findById(productId);
+
+        if (product.isPresent()){
+
+            Product product1=product.get();
+            product1.setProductPrice(price);
+
+            productRepository.save(product1);
+
+                return "Updated.";
+
+
+        }else throw new ProductException("Please Check Product ID");
+
     }
 
 }
