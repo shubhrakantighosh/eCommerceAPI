@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="766f92f7-a281-4e8f-af21-42e0e51ce94b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/DTO/ImageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/DTO/OrderDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/DTO/OrderedProductDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/exceptions/ImageException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Images.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/OrderedProduct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Temp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/CustomQuery/DBUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/CustomQuery/Delete_Rows.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/ImageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/OrderRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/OrderedProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/mvnw.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/mvnw.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/controller/AdministratorServicesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/controller/AdministratorControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/controller/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/controller/UserControllerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/exceptions/GlobalException.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/exceptions/GlobalException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Cart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/CategoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/DTO/CategoryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Orders.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Orders.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/DTO/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/DTO/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/model/UserSessionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/DTO/UserSessionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/CategoryRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/CategoryRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/OrderStatusRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/OrderStatusRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/UserSessionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/repository/UserSessionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/services/AdminService.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/services/AdminService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/services/UserServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/java/com/masai/services/UserServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eCommerceAPI/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/eCommerceAPI/src/main/resources/application.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2IBffKDTr8jsy8dUJBkVEG43qdC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/shubhrakantighosh/Desktop/eCommerceAPI&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="766f92f7-a281-4e8f-af21-42e0e51ce94b" name="Changes" comment="" />
+      <created>1669659999830</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669659999830</updated>
+      <workItem from="1669660003038" duration="30000" />
+      <workItem from="1676764559394" duration="14000" />
+      <workItem from="1676765006414" duration="124000" />
+      <workItem from="1676768278353" duration="8000" />
+      <workItem from="1676768289178" duration="35000" />
+      <workItem from="1676768327235" duration="63000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
