@@ -23,12 +23,12 @@ public class AdministratorControllerImpl {
     @Autowired
     private AdminService adminService;
 
-    @PostMapping("/addcategory")
+    @PostMapping("/add/category")
     public ResponseEntity<Category> addCategory(@RequestBody Category category) throws CategoryException {
         return new ResponseEntity<>(adminService.addCategory(category),HttpStatus.OK);
     }
 
-    @PostMapping("/addproduct")
+    @PostMapping("/add/product")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) throws CategoryException, ProductException {
 
         return new ResponseEntity<>(adminService.addProduct(product),HttpStatus.OK);
@@ -40,7 +40,7 @@ public class AdministratorControllerImpl {
         return new ResponseEntity<>(adminService.productImageAdd(productId,imageURL),HttpStatus.OK);
     }
 
-    @GetMapping("/image/images/{productId}")
+    @GetMapping("/image/{productId}")
     public ResponseEntity<List<ImageDTO>>imagesByProductId(@PathVariable Integer productId) throws ImageException, ProductException {
         return new ResponseEntity<>(adminService.imagesByProductId(productId),HttpStatus.OK);
     }
@@ -57,7 +57,7 @@ public class AdministratorControllerImpl {
 
     }
 
-    @GetMapping("/userSession")
+    @GetMapping("/user/session")
     public ResponseEntity<List<UserSessionDTO>> userSessions() throws AdminException {
         return new ResponseEntity<>(adminService.userSessions(),HttpStatus.OK);
     }

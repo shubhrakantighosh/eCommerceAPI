@@ -38,8 +38,12 @@ public class UserServices {
     private OrderedProductRepository orderedProductRepository;
     @Autowired
     private AddressRepository addressRepository;
+    @Autowired
+    private CartRepository repository;
+
 
     public User registerUser(User user) throws UserException {
+
         boolean flag=true;
 
         List<User>users=userRepository.findAll();
@@ -364,9 +368,6 @@ public class UserServices {
         }
 
         Delete_Rows.delete_rows(carts.get(0).getCardId());
-
-//        new Delete_Rows().delete_row(cart.getCardId());
-
 
         return "Removed Successfully.";
 

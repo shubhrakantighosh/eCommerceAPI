@@ -9,7 +9,8 @@ import java.util.List;
 
 
 @Data
-@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class User {
 

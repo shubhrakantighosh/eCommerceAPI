@@ -43,7 +43,7 @@ public class UserControllerImpl {
         return new ResponseEntity<>(userServices.logout(),HttpStatus.OK);
     }
 
-    @PostMapping("/address")
+    @PostMapping("/add/address")
     public ResponseEntity<String> addAddress(@RequestBody Address address) throws UserException {
         return new ResponseEntity<>(userServices.addAddress(address),HttpStatus.OK);
     }
@@ -60,9 +60,9 @@ public class UserControllerImpl {
         return new ResponseEntity<>(userServices.searchByCategoryName(categoryName),HttpStatus.OK);
     }
 
-    @GetMapping("/products/{minprice}/{maxprice}")
-    public ResponseEntity<List<ProductDTO>> searchByProductPrice(@PathVariable Double minprice,@PathVariable Double maxprice) throws ProductException, UserException {
-        return new ResponseEntity<>(userServices.searchByProductPrice(minprice,maxprice),HttpStatus.OK);
+    @GetMapping("/products/{min}/{max}")
+    public ResponseEntity<List<ProductDTO>> searchByProductPrice(@PathVariable Double min,@PathVariable Double max) throws ProductException, UserException {
+        return new ResponseEntity<>(userServices.searchByProductPrice(min,max),HttpStatus.OK);
     }
 
 
@@ -81,17 +81,17 @@ public class UserControllerImpl {
         return new ResponseEntity<>(userServices.addToCart(productId),HttpStatus.OK);
     }
 
-    @GetMapping("total")
+    @GetMapping("/cart/amount")
     private ResponseEntity<String> totalAmount() throws UserException {
         return new ResponseEntity<>(userServices.totalAmount(),HttpStatus.OK);
     }
 
-    @DeleteMapping("/removeCart")
+    @DeleteMapping("/cart/remove")
     public ResponseEntity<String> removeCart() throws UserException, CategoryException {
         return new ResponseEntity<>(userServices.removeCart(),HttpStatus.OK);
     }
 
-    @PostMapping("/order/{paymentMode}")
+    @PostMapping("/order/place/{paymentMode}")
     public ResponseEntity<String> createPlace(@PathVariable Payment paymentMode) throws UserException, CategoryException {
         return new ResponseEntity<>(userServices.orderPlace(paymentMode),HttpStatus.OK);
     }
