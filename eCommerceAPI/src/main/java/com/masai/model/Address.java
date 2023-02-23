@@ -1,6 +1,8 @@
 package com.masai.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
@@ -8,6 +10,8 @@ import javax.persistence.*;
 @Data
 @ToString
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
 
     @Id

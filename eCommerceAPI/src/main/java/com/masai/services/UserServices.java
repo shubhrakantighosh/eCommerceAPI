@@ -5,7 +5,6 @@ import com.masai.DTO.CategoryDTO;
 import com.masai.DTO.OrderDTO;
 import com.masai.DTO.OrderedProductDTO;
 import com.masai.DTO.ProductDTO;
-import com.masai.repository.CustomQuery.Delete_Rows;
 import com.masai.exceptions.CategoryException;
 import com.masai.exceptions.ProductException;
 import com.masai.exceptions.UserException;
@@ -342,7 +341,7 @@ public class UserServices {
     }
 
 
-    public String removeCart() throws UserException, CategoryException {
+    public String  removeCart() throws UserException, CategoryException {
 
         User user=null;
 
@@ -367,7 +366,8 @@ public class UserServices {
             throw new UserException("No Product added.");
         }
 
-        Delete_Rows.delete_rows(carts.get(0).getCardId());
+        cartRepository.delete_product_cart(carts.get(0).getCartId());
+        cartRepository.delete_cart(carts.get(0).getCartId());
 
         return "Removed Successfully.";
 
@@ -402,6 +402,7 @@ public class UserServices {
 
         Orders orders =new Orders();
 
+
         List<Product>products=carts.get(0).getProducts();
 
         List<OrderedProduct> orderedProducts =new ArrayList<>();
@@ -424,22 +425,25 @@ public class UserServices {
 
         }
 
+        String orderId = "shubhra"+new Date().getTime();
         orders.setProducts(orderedProducts);
+        orders.setOrderId(orderId);
         orders.setPayment(paymentMode);
-        orders.setUser(user);
         orders.setTotalPrice(totalPrice);
+        orders.setUserId(user.getUserId());
         orders.setPinCode(user.getAddress().getPinCode());
         orders.setCity(user.getAddress().getCity());
         orders.setState(user.getAddress().getState());
 
-        if(orders.getTotalPrice()>=5000){
+        if(totalPrice>=5000){
             orders.setShipping_Charges("Free");
         }else orders.setShipping_Charges("400");
 
         orderRepository.save(orders);
 
-        Delete_Rows.delete_rows(carts.get(0).getCardId());
 
+        cartRepository.delete_product_cart(carts.get(0).getCartId());
+        cartRepository.delete_cart(carts.get(0).getCartId());
 
         return "Order Place Successfully.";
     }
@@ -471,7 +475,7 @@ public class UserServices {
 
         for(Orders order : ordersList){
 
-            if (Objects.equals(order.getUser().getUserId(), user.getUserId())){
+            if (Objects.equals(order.getUserId(), user.getUserId())){
                 list.add(order);
             }
 

@@ -3,7 +3,6 @@ package com.masai.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +16,7 @@ public class Cart {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer cardId;
+    private Integer cartId;
     @Transient
     private Integer productId;
     @ManyToMany(cascade = CascadeType.ALL)

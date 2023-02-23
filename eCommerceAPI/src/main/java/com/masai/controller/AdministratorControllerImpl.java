@@ -2,10 +2,7 @@ package com.masai.controller;
 
 
 import com.masai.DTO.*;
-import com.masai.exceptions.AdminException;
-import com.masai.exceptions.CategoryException;
-import com.masai.exceptions.ImageException;
-import com.masai.exceptions.ProductException;
+import com.masai.exceptions.*;
 import com.masai.model.*;
 import com.masai.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +65,7 @@ public class AdministratorControllerImpl {
     }
 
     @GetMapping("/user/{userId}")
-    public UserDTO searchByUserId(@PathVariable Integer userId){
+    public User searchByUserId(@PathVariable Integer userId) throws UserException {
         return adminService.searchByUserId(userId);
     }
 

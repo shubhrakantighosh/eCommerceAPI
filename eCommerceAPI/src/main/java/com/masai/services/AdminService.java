@@ -2,10 +2,7 @@ package com.masai.services;
 
 
 import com.masai.DTO.*;
-import com.masai.exceptions.AdminException;
-import com.masai.exceptions.CategoryException;
-import com.masai.exceptions.ImageException;
-import com.masai.exceptions.ProductException;
+import com.masai.exceptions.*;
 import com.masai.model.*;
 import com.masai.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,11 +104,20 @@ public class AdminService {
         return userSessionRepository.userSessions();
     }
 
-    public UserDTO searchByUserId(Integer userId){
-        return userRepository.searchByUserId(userId);
+    public User searchByUserId(Integer userId) throws UserException {
+
+
+        Optional<User> s= userRepository.findById(userId);
+
+        if(s.isPresent()){
+            return s.get();
+        }else throw new UserException("Not");
+
     }
 
     public UserDTO searchByUserName(String userName) {
+
+
 
         return userRepository.searchByUserName(userName);
     }
